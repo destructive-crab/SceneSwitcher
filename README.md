@@ -33,8 +33,6 @@
 
 **SceneSwitcher** – is a handy Unity editor tool that helps you move between scenes.
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Full.png)
 
 ## Features
@@ -70,4 +68,12 @@ After **SceneSwitcher** installation tool appears in Unity menu:
 4. Choose if you want to have Custom Play Mode Scene feature, then choose it. You can look for build index in your build settings;
 5. Choose if you want to save scene before switch. It is not recommended to disable this feature.
 6. Edit spacings and heights of buttons.
-7. Edit the formatting of button labels. SCENE_NAME will be replaced with scene name. 
+7. Edit the formatting of button labels. SCENE_NAME will be replaced with scene name.
+
+## Examples
+
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsCustom.png)
+
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettomgsMinimal.png)
