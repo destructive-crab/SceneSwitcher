@@ -1,4 +1,4 @@
-<p align="center"><h1>⭐SceneSwitcher⭐</h1></p>
+<p align="center"><h1>SceneSwitcher</h1></p>
 <p align="center">
   <a>
     <img alt="Made With Unity" src="https://img.shields.io/badge/made%20with-Unity-57b9d3.svg?logo=Unity">
@@ -29,50 +29,41 @@
   </a>
 </p>
 
-## Описание
+## Description
 
-**SceneSwitcher** – это удобный инструмент для Unity Editor, который позволяет быстро и легко переключаться между
-сценами в проекте. Это решение особенно полезно в крупных проектах Unity, где управление множеством сцен может быть
-затруднено.
+**SceneSwitcher** – is a handy Unity editor tool that helps you move between scenes.
 
-## Основные функции
+## Features
 
-- **Быстрый переход между сценами**: Переключайтесь между сценами одним кликом в окне инструмента.
-- **Автосохранение**: Опционально сохраняйте текущую сцену перед переключением (включается/выключается).
-- **Отображение сцен**: Выбирайте, показывать ли **все** сцены в проекте или только те, что указаны в настройках
+- **Fast switching between scenes**: You can switch to any scene just from tool's window.
+- **Different scene pools**: You can choose to display scenes only from Build Settings or all scenes in project.
   сборки (Build Settings).
-- **Режим Compact Buttons**: Включайте или отключайте компактный режим, чтобы управлять шириной кнопок и их
-  расположением (узкие кнопки по центру или более широкие).
-- **Отладочный лог**: По необходимости выводите сообщения в `Console` при сохранении или переключении сцен.
+- **Highly customizable**: every part of scene switcher window can be customized.
+- **Safe**: scenes are saved on switching, scene switcher stuff is disabled on Play Mode.
+- **Custom Play Mode Start Scene**: you can change from which scene you want to enter into Play Mode. Or disable this feature.
+- **Return To Previous Scene Button**: SceneSwitcher remembers the previous scene and can return to it. Or you can disable this feature.
 
-## Установка
+## Installation
+### With Package Manager
+1. Open your Unity project.
+2. Open **Window** → **Package Manager**.
+3. In **Package Manager** press `+` button, then choose **Add package from git URL...**.
+4. Paste this URL:`https://github.com/RimuruDev/SceneSwitcher.git`
+5. Press **Enter** and wait for the installation to complete.
+### With Unity Package 
+1. Download latest release from github page.
+2. Drag and drop unitypackage file in your project.
+3. Check if SceneSwitcher source was imported correctly: in Editor folder.
 
-1. Откройте Unity и перейдите в ваш проект.
-2. Откройте **Window** → **Package Manager**.
-3. В **Package Manager** нажмите на кнопку `+`, затем выберите **Add package from git URL...**.
-4. Вставьте следующий URL:`https://github.com/RimuruDev/SceneSwitcher.git`
-5. Нажмите **Enter** и дождитесь завершения установки.
+## Usage
 
-## Использование
+After **SceneSwitcher** installation tool appears in Unity menu:  
+**Tools** → **Scene Switcher**.
 
-После установки **SceneSwitcher** инструмент появляется в меню Unity:  
-**RimuruDev Tools** → **Scene Switcher**.
-
-1. Откройте окно **Scene Switcher**.
-2. Отметьте галочкой, хотите ли вы показывать **все сцены** или только **Build Settings**.
-3. Настройте **Автосохранение** (Auto Save) и **Debug Log** (отладочные сообщения) по желанию.
-4. При необходимости включите **Compact Buttons** – кнопки станут короче и будут выровнены по центру.
-5. Нажмите на любую сцену для мгновенного переключения.
-
-![image](https://github.com/RimuruDev/SceneSwitcher/assets/85500556/0d0f8801-6ed1-44c2-8c44-5908af19cda1)
-
-## Контакты
-
-Если у вас есть вопросы или предложения, вы можете связаться со мной:
-
-- **Email**: [rimuru.dev@gmail.com](mailto:rimuru.dev@gmail.com)
-- **GitHub**: [RimuruDev](https://github.com/RimuruDev)
-
-## Лицензия
-
-Проект распространяется под лицензией **MIT**. Подробности см. в файле [`LICENSE`](LICENSE).
+1. Open **Scene Switcher** window. In Assets/Editor/SceneSwitcher settings asset will be created.
+2. Choose which scenes you want to see in SceneSwitcher window.
+3. Choose if you want to have Return button.
+4. Choose if you want to have Custom Play Mode Scene feature, then choose it. You can look for build index in your build settings;
+5. Choose if you want to save scene before switch. It is not recommended to disable this feature.
+6. Edit spacings and heights of buttons.
+7. Edit the formatting of button labels. SCENE_NAME will be replaced with scene name. 
