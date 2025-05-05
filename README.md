@@ -33,6 +33,10 @@
 
 **SceneSwitcher** – is a handy Unity editor tool that helps you move between scenes.
 
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Full.png)
+
 ## Features
 
 - **Fast switching between scenes**: You can switch to any scene just from tool's window.
