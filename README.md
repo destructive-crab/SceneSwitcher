@@ -73,7 +73,9 @@ After **SceneSwitcher** installation tool appears in Unity menu:
 ## Examples
 
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsCustom.png)
+
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsFull.png)
 
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettomgsMinimal.png)
+
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsMinimal.png)
