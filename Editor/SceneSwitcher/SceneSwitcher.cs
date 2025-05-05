@@ -1,113 +1,275 @@
 // **************************************************************** //
 //
 //   Copyright (c) RimuruDev. All rights reserved.
-//   Contact me:
+//   Contact me: 
 //          - Gmail:    rimuru.dev@gmail.com
 //          - LinkedIn: https://www.linkedin.com/in/rimuru/
 //          - Gists:    https://gist.github.com/RimuruDev/af759ce6d9768a38f6838d8b7cc94fc8
 //          - GitHub:   https://github.com/RimuruDev
+//          - GitHub Organizations: https://github.com/Rimuru-Dev
 //
 // **************************************************************** //
 
-#if UNITY_EDITOR
+using System;
 using System.IO;
 using UnityEditor;
-using UnityEngine;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 
-namespace AbyssMoth.External.RimuruDevUtils.Editor.SceneSwitcher
+namespace RimuruDevUtils.SceneSwitcher
 {
     public sealed class SceneSwitcher : EditorWindow
     {
-        private const string CtrlF2 = "%#F2";
-        private const string FindAssets = "t:Scene";
-        private const string logFormat = "<color=yellow>{0}</color>";
+        private const string SETTINGS_STORAGE_PATH = "Assets/Editor/SceneSwitcher/SceneSwitcherSettings.asset";
+        private const string SCENE_NAME_PLACE = "SCENE_NAME";
 
-        private bool showAllScenes;
-        private bool autoSaveEnabled = true;
-        private bool settingsFoldout = true;
-        private bool showDebugLog;
-        private bool compactButtons;
-        private Vector2 scrollPosition;
+        private const string EXIT_PLAY_MODE = "Exit Play Mode";
+        private const string RETURN_TO_PREVIOUS_BUTTON = " <- |Return| <- ";
+        private const string SETTINGS_BUTTON = "Open Settings";
+        private const string ENABLE_CUSTOM_PLAY_MODE_START_SCENE = " Enable Custom Play Mode Start Scene";
+        private const string DISABLE_CUSTOM_PLAY_MODE_START_SCENE = "Disable Custom Play Mode Start Scene";
 
-        [MenuItem("RimuruDev Tools/Scene Switcher " + CtrlF2)]
+        private string[] scenes;
+        private string CurrentScene => EditorSceneManager.GetActiveScene().path;
+        private string Previous;
+        
+        private SceneAsset customPlayModeStartScene;
+        private string customPlayModeStartScenePath;
+
+        private Settings CurrentSettings => settingsAsset.Settings;
+        private SceneSwitcherSettingsScriptableObject settingsAsset;
+
+        [MenuItem("Tools/Scene Switcher")]
         private static void ShowWindow()
         {
-            GetWindow<SceneSwitcher>();
+            GetWindow(typeof(SceneSwitcher));
+        }
+        
+        private void Awake()
+        {
+            if (!LoadSettings())
+            {
+                CreateNewSettingsAsset();
+                LoadSettings();
+            }
+            
+            CollectScenes();
+        }
+
+        private void OnEnable()
+        {
+            EditorBuildSettings.sceneListChanged += CollectScenes;
+            AssetChangeListener.AssetsWereChanged += CollectScenes;
+
+        }
+
+        private void OnDisable()
+        {
+            EditorBuildSettings.sceneListChanged -= CollectScenes;
+            AssetChangeListener.AssetsWereChanged -= CollectScenes;
         }
 
         private void OnGUI()
         {
-            GUILayout.Label("Scene Switcher", EditorStyles.boldLabel);
-
-            settingsFoldout = EditorGUILayout.Foldout(settingsFoldout, "Settings");
-           
-            if (settingsFoldout)
+            if (EditorApplication.isPlaying)
             {
-                EditorGUI.indentLevel++;
+                if (GUILayout.Button(EXIT_PLAY_MODE, GUILayout.Height(position.height), GUILayout.Width(position.width)))
                 {
-                    showAllScenes = EditorGUILayout.Toggle("Show Absolutely All Scenes", showAllScenes);
-                    autoSaveEnabled = EditorGUILayout.Toggle("Enable Auto Save", autoSaveEnabled);
-                    showDebugLog = EditorGUILayout.Toggle("Show Debug Log", showDebugLog);
-                    compactButtons = EditorGUILayout.Toggle("Compact Buttons", compactButtons);
+                    EditorApplication.ExitPlaymode();
                 }
-                EditorGUI.indentLevel--;
+                return;
             }
 
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, GUILayout.Width(350), GUILayout.Height(350));
-
-            var scenePaths = showAllScenes
-                ? GetAllScenePaths()
-                : GetScenePathsByBuildSettings();
-           
-            var buttonWidth = compactButtons 
-                ? 200
-                : 300;
-
-            foreach (var scenePath in scenePaths)
+            if(CurrentSettings.ShowReturnToPreviousButton)
             {
+                DrawReturnToPrevious();
+                GUILayout.Space(CurrentSettings.SpaceAfterReturnToPreviousButton);
+            }
+            
+            DrawSceneButtons();
+            GUILayout.Space(CurrentSettings.SpaceAfterSceneButtons);
+            
+            if(CurrentSettings.EnableCustomPlayModeStartSceneButton)
+            {
+                DrawCustomPlayModeStartSceneButtons();
+            }
+
+            DrawSettingsButton();
+        }
+
+        private void DrawReturnToPrevious()
+        {
+            if(Previous == "") return;
+            
+            GUILayout.Space(10);
+            
+            if(GUILayout.Button(RETURN_TO_PREVIOUS_BUTTON, GUILayout.Height(CurrentSettings.ReturnButtonHeight)))
+            {
+                SwitchTo(Previous);
+            }
+        }
+
+        private void DrawSceneButtons()
+        {
+            for (int i = 0; i < scenes.Length; i++)
+            {
+                string scenePath = scenes[i];
                 GUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
 
-                if (GUILayout.Button(Path.GetFileNameWithoutExtension(scenePath), GUILayout.Width(buttonWidth)))
-                {
-                    if (autoSaveEnabled && EditorSceneManager.SaveOpenScenes())
-                    {
-                        if (showDebugLog)
-                            Debug.LogFormat(logFormat, "Scenes saved!");
-                    }
+                string buttonText = Path.GetFileNameWithoutExtension(scenePath);
 
-                    EditorSceneManager.OpenScene(scenePath);
+                //add play mode start scene indicator
+                if (EditorSceneManager.playModeStartScene != null && scenePath == customPlayModeStartScenePath)
+                {
+                    buttonText = CurrentSettings.CustomPlayModeStartSceneLabelFormatting.Replace(SCENE_NAME_PLACE, buttonText);
+                }
+                //add current scene indicator 
+                if (scenePath == CurrentScene)
+                {
+                    buttonText = CurrentSettings.CurrentSceneButtonFormatting.Replace(SCENE_NAME_PLACE, buttonText);
+                }
+
+                if (GUILayout.Button(buttonText, GUILayout.Width(position.width),
+                        GUILayout.Height(CurrentSettings.SceneButtonHeight)))
+                {
+                    SwitchTo(scenePath);
                 }
 
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
+                
+                if(i < scenes.Length - 1)
+                {
+                    GUILayout.Space(CurrentSettings.SpaceBetweenSceneButtons);
+                }
+            }
+        }
+
+        private void DrawCustomPlayModeStartSceneButtons()
+        {
+            if (EditorSceneManager.playModeStartScene == null && GUILayout.Button(ENABLE_CUSTOM_PLAY_MODE_START_SCENE))
+            {
+                EditorSceneManager.playModeStartScene = customPlayModeStartScene;
+            }
+            else if (EditorSceneManager.playModeStartScene != null && GUILayout.Button(DISABLE_CUSTOM_PLAY_MODE_START_SCENE))
+            {
+                EditorSceneManager.playModeStartScene = null;
+            }
+        }
+
+        private void DrawSettingsButton()
+        {
+            if (GUILayout.Button(SETTINGS_BUTTON, GUILayout.Height(CurrentSettings.SettingButtonHeight)))
+            {
+                Selection.activeObject = settingsAsset;
+            }
+        }
+
+        private void CollectScenes()
+        {
+            customPlayModeStartScenePath = EditorBuildSettings.scenes[CurrentSettings.CustomPlayModeStartSceneBuildIndex].path;
+            customPlayModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(customPlayModeStartScenePath);
+            
+            switch(CurrentSettings.WhichScenesCollect)
+            {
+                case Settings.Collect.OnlyFromBuild:
+                    scenes = new string[EditorBuildSettings.scenes.Length];
+                    for (int i = 0; i < scenes.Length; i++)
+                    {
+                        scenes[i] = EditorBuildSettings.scenes[i].path;
+                    }
+                    break;
+                
+                case Settings.Collect.All:
+                    string[] guids = AssetDatabase.FindAssets("t:Scene");
+                    scenes = new string[guids.Length];
+                    for (int i = 0; i < guids.Length; i++)
+                    {
+                        scenes[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
+                    }
+                    break;
+                
+                default: throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void SwitchTo(string path)
+        {
+            if(path == CurrentScene) return;
+            
+            if (CurrentSettings.SaveSceneSwitch)
+            {
+                EditorSceneManager.SaveOpenScenes();
             }
 
-            GUILayout.EndScrollView();
+            Previous = CurrentScene;
+            EditorSceneManager.OpenScene(path);
         }
 
-        private static string[] GetScenePathsByBuildSettings()
+        private bool LoadSettings()
         {
-            var scenes = EditorBuildSettings.scenes;
-            var paths = new string[scenes.Length];
-
-            for (var i = 0; i < scenes.Length; i++)
-                paths[i] = scenes[i].path;
-
-            return paths;
+            settingsAsset = AssetDatabase.LoadAssetAtPath<SceneSwitcherSettingsScriptableObject>(SETTINGS_STORAGE_PATH);
+            return settingsAsset != null;
         }
 
-        private static string[] GetAllScenePaths()
+        private static void CreateNewSettingsAsset()
         {
-            var guids = AssetDatabase.FindAssets(FindAssets);
-            var scenePaths = new string[guids.Length];
+            string[] slicedPath = Path.GetDirectoryName(SETTINGS_STORAGE_PATH)?.Split(Path.DirectorySeparatorChar);
 
-            for (var i = 0; i < guids.Length; i++)
-                scenePaths[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
+            if(slicedPath != null && slicedPath.Length <= 1)
+            {
+                Debug.LogError($"[SCENE SWITCHER] CANNOT CREATE SETTINGS ASSET. INVALID PATH: {SETTINGS_STORAGE_PATH}");
+            }
 
-            return scenePaths;
+            string currentDirectory = slicedPath[0];
+
+            for (int i = 1; i < slicedPath.Length; i++)
+            {
+                string folder = slicedPath[i];
+                string nextDirectory = Path.Join(currentDirectory, folder);
+                
+                if (!AssetDatabase.IsValidFolder(nextDirectory))
+                {
+                    AssetDatabase.CreateFolder(currentDirectory, folder);
+                }
+
+                currentDirectory = nextDirectory;
+            }
+
+            AssetDatabase.Refresh();
+            
+            AssetDatabase.CreateAsset(CreateInstance<SceneSwitcherSettingsScriptableObject>(),SETTINGS_STORAGE_PATH);
+            Debug.Log($"[SCENE SWITCHER] CREATED NEW SCENE SWITCHER SETTINGS ASSET AT {Path.GetDirectoryName(SETTINGS_STORAGE_PATH)}");
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            [Header("Behaviour")]
+            public Collect WhichScenesCollect = Collect.OnlyFromBuild;
+            public bool ShowReturnToPreviousButton = false;
+            public bool EnableCustomPlayModeStartSceneButton = false;
+            public int CustomPlayModeStartSceneBuildIndex = 0;
+            public bool SaveSceneSwitch = true;
+
+            [Header("Button Style")]
+            [Range(15, 50)] public int ReturnButtonHeight = 20;
+            [Range(15, 50)] public int SceneButtonHeight = 20;
+            [Range(15, 50)] public int SettingButtonHeight = 15;
+
+            [Range(0, 20)] public int SpaceAfterReturnToPreviousButton = 10;
+            [Range(0, 20)] public int SpaceBetweenSceneButtons = 0;
+            [Range(0, 20)] public int SpaceAfterSceneButtons = 20;
+            
+            public string CurrentSceneButtonFormatting = "> SCENE_NAME <";
+            public string CustomPlayModeStartSceneLabelFormatting = "(PM) SCENE_NAME";
+            
+            public enum Collect 
+            {
+                OnlyFromBuild,
+                All
+            }
         }
     }
 }
-#endif
