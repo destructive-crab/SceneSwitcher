@@ -11,10 +11,17 @@
 // **************************************************************** //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Sirenix.Utilities;
+using Unity.Collections;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace RimuruDevUtils.SceneSwitcher
 {
@@ -83,7 +90,7 @@ namespace RimuruDevUtils.SceneSwitcher
             if(CurrentSettings.ShowReturnToPreviousButton)
             {
                 DrawReturnToPrevious();
-                GUILayout.Space(CurrentSettings.SpaceAfterReturnToPreviousButton);
+                GUILayout.Space(CurrentSettings.SpaceAfterReturnButton);
             }
             
             DrawSceneButtons();
@@ -111,9 +118,15 @@ namespace RimuruDevUtils.SceneSwitcher
 
         private void DrawSceneButtons()
         {
+            if (scenes.Length == 0)
+            {
+                EditorGUILayout.HelpBox("   ZERO SCENES FOUND/SELECTED", MessageType.Info); 
+            }
+            
             for (int i = 0; i < scenes.Length; i++)
             {
                 string scenePath = scenes[i];
+                
                 GUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
 
@@ -122,7 +135,7 @@ namespace RimuruDevUtils.SceneSwitcher
                 //add play mode start scene indicator
                 if (EditorSceneManager.playModeStartScene != null && scenePath == customPlayModeStartScenePath)
                 {
-                    buttonText = CurrentSettings.CustomPlayModeStartSceneLabelFormatting.Replace(SCENE_NAME_PLACE, buttonText);
+                    buttonText = CurrentSettings.CustomStartSceneLabelFormatting.Replace(SCENE_NAME_PLACE, buttonText);
                 }
                 //add current scene indicator 
                 if (scenePath == CurrentScene)
@@ -180,7 +193,22 @@ namespace RimuruDevUtils.SceneSwitcher
                         scenes[i] = EditorBuildSettings.scenes[i].path;
                     }
                     break;
-                
+
+                case Settings.Collect.CustomList:
+                    //clear from nulls
+                    CurrentSettings.CustomSceneList.RemoveAll((asset) => asset == null);
+                    //clear from duplicates
+                    CurrentSettings.CustomSceneList = CurrentSettings.CustomSceneList.Distinct().ToList();
+
+                    scenes = new string[CurrentSettings.CustomSceneList.Count];
+                    for (int i = 0; i < CurrentSettings.CustomSceneList.Count; i++)
+                    {
+                        var sceneAsset = CurrentSettings.CustomSceneList[i];
+                        if(sceneAsset == null) continue;
+
+                        scenes[i] = AssetDatabase.GetAssetPath(sceneAsset);
+                    }
+                    break;
                 case Settings.Collect.All:
                     string[] guids = AssetDatabase.FindAssets("t:Scene");
                     scenes = new string[guids.Length];
@@ -189,7 +217,6 @@ namespace RimuruDevUtils.SceneSwitcher
                         scenes[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
                     }
                     break;
-                
                 default: throw new ArgumentOutOfRangeException();
             }
         }
@@ -246,28 +273,30 @@ namespace RimuruDevUtils.SceneSwitcher
         [Serializable]
         public class Settings
         {
-            [Header("Behaviour")]
-            public Collect WhichScenesCollect = Collect.OnlyFromBuild;
-            public bool ShowReturnToPreviousButton = false;
+            public Collect WhichScenesCollect = Collect.OnlyFromBuild; 
+            public bool ShowReturnToPreviousButton = false; 
             public bool EnableCustomPlayModeStartSceneButton = false;
+
             public int CustomPlayModeStartSceneBuildIndex = 0;
             public bool SaveSceneSwitch = true;
 
-            [Header("Button Style")]
+            public List<SceneAsset> CustomSceneList;
+
             [Range(15, 50)] public int ReturnButtonHeight = 20;
             [Range(15, 50)] public int SceneButtonHeight = 20;
             [Range(15, 50)] public int SettingButtonHeight = 15;
 
-            [Range(0, 20)] public int SpaceAfterReturnToPreviousButton = 10;
+            [Range(0, 20)] public int SpaceAfterReturnButton = 10;
             [Range(0, 20)] public int SpaceBetweenSceneButtons = 0;
             [Range(0, 20)] public int SpaceAfterSceneButtons = 20;
             
-            public string CurrentSceneButtonFormatting = "> SCENE_NAME <";
-            public string CustomPlayModeStartSceneLabelFormatting = "(PM) SCENE_NAME";
+            public string CurrentSceneButtonFormatting = "> SCENE_NAME <"; 
+            public string CustomStartSceneLabelFormatting = "(PM) SCENE_NAME"; 
             
             public enum Collect 
             {
                 OnlyFromBuild,
+                CustomList,
                 All
             }
         }
