@@ -62,13 +62,23 @@
 After **SceneSwitcher** installation tool appears in Unity menu:  
 **Tools** → **Scene Switcher**.
 
-1. Open **Scene Switcher** window. In Assets/Editor/SceneSwitcher settings asset will be created.
-2. Choose which scenes you want to see in SceneSwitcher window.
-3. Choose if you want to have Return button.
-4. Choose if you want to have Custom Play Mode Scene feature, then choose it. You can look for build index in your build settings;
-5. Choose if you want to save scene before switch. It is not recommended to disable this feature.
-6. Edit spacings and heights of buttons.
-7. Edit the formatting of button labels. SCENE_NAME will be replaced with scene name.
+Open **Scene Switcher** window. In Assets/Editor/SceneSwitcher settings asset will be created.
+Then you can configure Scene Switcher as you like. Just open settings by pressing Open Settings button in Scene Switcher.
+
+In Behaviour menu you can edit:
+1. Which Scenes Collect - there are three options
+  1. Only From Build - it means that SceneSwitcher will show you only that scenes that you have in Build Settings.
+  2. Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list.
+  3. All - Scene Switcher will show you all scenes that you have in your project.
+2. Show Return To Previous Button - you can enable and disable Return button in Scene Switcher. By pressing it Scene Switcher will switch you to previously opened scene.
+3. Enable Custom Play Mode Start Scene - when enabled, allows you to change scene from which Play Mode starts. Then you can enable and disable it from Scene Switcher.
+4. Custom Play Mode Start Scene Build Index - type here index of Play Mode Start Scene.
+5. Save Scene On Switch - not recommended to disable. If enabled, scene will be automaticly saved when switch.
+
+In Button Style menu you can edit:
+1. Heights and button spacings 
+2. Formatting of current scene butoon - type there what you want to see on current scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene.
+3. Formatting of Play Mode Start Scene - type there what you want to see on start scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene. 
 
 ## Examples
 
