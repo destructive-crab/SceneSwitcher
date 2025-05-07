@@ -33,7 +33,7 @@
 
 **SceneSwitcher** – is a handy Unity editor tool that helps you move between scenes.
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Full.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
 
 ## Features
 
@@ -83,11 +83,9 @@ In Button Style menu you can edit:
 ## Examples
 
 ### With Custom Scene List:
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneList.png)
-
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneListSettings.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneList.png) ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneListSettings.png)
 
 ### Minimal
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png) ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsMinimal.png)
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsMinimal.png)
+
