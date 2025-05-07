@@ -82,10 +82,12 @@ In Button Style menu you can edit:
 
 ## Examples
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
+### With Custom Scene List:
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneList.png)
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsFull.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneListSettings.png)
 
+### Minimal
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png)
 
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsMinimal.png)
