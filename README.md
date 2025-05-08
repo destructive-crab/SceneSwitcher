@@ -38,24 +38,23 @@
 ## Features
 
 - **Fast switching between scenes**: You can switch to any scene just from tool's window.
-- **Different scene pools**: You can choose to display scenes only from Build Settings or all scenes in project.
-  сборки (Build Settings).
+- **Custom Play Mode Start Scene**: you can change from which scene you want to enter into Play Mode. Or disable this feature.
+- **Return Button**: Scene Switcher remembers the previous scene and can return to it. Or you can disable this feature.
+- **Different scene pools**: Scene Switcher provides three types of scene pools: from **build settings**, **all** from project or **custom list**.
 - **Highly customizable**: every part of scene switcher window can be customized.
 - **Safe**: scenes are saved on switching, scene switcher stuff is disabled on Play Mode.
-- **Custom Play Mode Start Scene**: you can change from which scene you want to enter into Play Mode. Or disable this feature.
-- **Return To Previous Scene Button**: SceneSwitcher remembers the previous scene and can return to it. Or you can disable this feature.
 
 ## Installation
+### With Unity Package 
+1. Download latest release from github page.
+2. Drag and drop unitypackage file in your project.
+3. Check if SceneSwitcher source was imported correctly: in Editor folder.
 ### With Package Manager
 1. Open your Unity project.
 2. Open **Window** → **Package Manager**.
 3. In **Package Manager** press `+` button, then choose **Add package from git URL...**.
 4. Paste this URL:`https://github.com/RimuruDev/SceneSwitcher.git`
 5. Press **Enter** and wait for the installation to complete.
-### With Unity Package 
-1. Download latest release from github page.
-2. Drag and drop unitypackage file in your project.
-3. Check if SceneSwitcher source was imported correctly: in Editor folder.
 
 ## Usage
 
