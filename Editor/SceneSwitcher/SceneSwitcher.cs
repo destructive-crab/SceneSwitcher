@@ -14,14 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sirenix.Utilities;
-using Unity.Collections;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering.VirtualTexturing;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace RimuruDevUtils.SceneSwitcher
 {
