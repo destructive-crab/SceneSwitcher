@@ -10,7 +10,7 @@
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/destructive-crab/SceneSwitcher?logo=Mapbox&color=orange">
   </a>
   <a>
-    <img alt="Last Release" src="https://img.shields.io/github/v/release/RimuruDev/SceneSwitcher?include_prereleases&logo=Dropbox&color=yellow">
+    <img alt="Last Release" src="https://img.shields.io/github/v/release/destructive-crab/SceneSwitcher?include_prereleases&logo=Dropbox&color=yellow">
   </a>
 
 ## Description
