@@ -7,27 +7,11 @@
     <img alt="License" src="https://img.shields.io/github/license/RimuruDev/SceneSwitcher?logo=github">
   </a>
   <a>
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/RimuruDev/SceneSwitcher?logo=Mapbox&color=orange">
-  </a>
-  <a>
-    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/RimuruDev/SceneSwitcher?logo=VirtualBox">
-  </a>
-  <a>
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/RimuruDev/SceneSwitcher/total?color=brightgreen">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/destructive-crab/SceneSwitcher?logo=Mapbox&color=orange">
   </a>
   <a>
     <img alt="Last Release" src="https://img.shields.io/github/v/release/RimuruDev/SceneSwitcher?include_prereleases&logo=Dropbox&color=yellow">
   </a>
-  <a>
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/RimuruDev/SceneSwitcher?branch=main&label=Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
-  </a>
-  <a>
-    <img alt="GitHub user stars" src="https://img.shields.io/github/stars/RimuruDev?affiliations=OWNER&branch=main&label=User%20Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
-  </a>
-  <a>
-    <img alt="" src="https://img.shields.io/github/watchers/RimuruDev/SceneSwitcher?style=flat">
-  </a>
-</p>
 
 ## Description
 
