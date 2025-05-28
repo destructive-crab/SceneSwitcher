@@ -33,7 +33,7 @@
 
 **SceneSwitcher** – is a handy Unity editor tool that helps you move between scenes.
 
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Custom.png)
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SwitcherShowcase.png)
 
 ## Features
 
@@ -49,12 +49,6 @@
 1. Download latest release from github page.
 2. Drag and drop unitypackage file in your project.
 3. Check if SceneSwitcher source was imported correctly: in Editor folder.
-### With Package Manager
-1. Open your Unity project.
-2. Open **Window** → **Package Manager**.
-3. In **Package Manager** press `+` button, then choose **Add package from git URL...**.
-4. Paste this URL:`https://github.com/RimuruDev/SceneSwitcher.git`
-5. Press **Enter** and wait for the installation to complete.
 
 ## Usage
 
@@ -62,29 +56,22 @@ After **SceneSwitcher** installation tool appears in Unity menu:
 **Tools** → **Scene Switcher**.
 
 Open **Scene Switcher** window. In Assets/Editor/SceneSwitcher settings asset will be created.
-Then you can configure Scene Switcher as you like. Just open settings by pressing Open Settings button in Scene Switcher.
+Then you can configure Scene Switcher as you like. Just open settings by pressing Open Settings button in Scene Switcher menu.
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/HowToOpenSettings.png)
 
 In Behaviour menu you can edit:
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/BehaviourSettingsShowcase.png)
 1. Which Scenes Collect - there are three options
   1. Only From Build - it means that SceneSwitcher will show you only that scenes that you have in Build Settings.
-  2. Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list.
+  2. Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list. 
   3. All - Scene Switcher will show you all scenes that you have in your project.
 2. Show Return To Previous Button - you can enable and disable Return button in Scene Switcher. By pressing it Scene Switcher will switch you to previously opened scene.
-3. Enable Custom Play Mode Start Scene - when enabled, allows you to change scene from which Play Mode starts. Then you can enable and disable it from Scene Switcher.
-4. Custom Play Mode Start Scene Build Index - type here index of Play Mode Start Scene.
+3. Custom Play Mode Start Scene Build Index - type here index of Play Mode Start Scene.
+4. Auto Enable Custom Play Mode Start Scene - when enabled, it will automatically change play mode start scene when you open project. If not, you will need to switch it on manually.
 5. Save Scene On Switch - not recommended to disable. If enabled, scene will be automaticly saved when switch.
 
 In Button Style menu you can edit:
+![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/StyleSettingsShowcase.png)
 1. Heights and button spacings 
 2. Formatting of current scene butoon - type there what you want to see on current scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene.
 3. Formatting of Play Mode Start Scene - type there what you want to see on start scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene. 
-
-## Examples
-
-### With Custom Scene List:
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneList.png) ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/CustomSceneListSettings.png)
-
-### Minimal
-![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/Minimal.png) ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/SettingsMinimal.png)
-
-
