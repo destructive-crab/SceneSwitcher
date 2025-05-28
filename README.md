@@ -65,9 +65,9 @@ In Behaviour menu you can edit:
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/BehaviourSettingsShowcase.png)
 
 1. Which Scenes Collect - there are three options
-  1. Only From Build - it means that SceneSwitcher will show you only that scenes that you have in Build Settings.
-  2. Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list. 
-  3. All - Scene Switcher will show you all scenes that you have in your project.
+  - Only From Build - it means that SceneSwitcher will show you only that scenes that you have in Build Settings.
+  - Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list. 
+  - All - Scene Switcher will show you all scenes that you have in your project.
 2. Show Return To Previous Button - you can enable and disable Return button in Scene Switcher. By pressing it Scene Switcher will switch you to previously opened scene.
 3. Custom Play Mode Start Scene Build Index - type here index of Play Mode Start Scene.
 4. Auto Enable Custom Play Mode Start Scene - when enabled, it will automatically change play mode start scene when you open project. If not, you will need to switch it on manually.
