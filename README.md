@@ -57,10 +57,13 @@ After **SceneSwitcher** installation tool appears in Unity menu:
 
 Open **Scene Switcher** window. In Assets/Editor/SceneSwitcher settings asset will be created.
 Then you can configure Scene Switcher as you like. Just open settings by pressing Open Settings button in Scene Switcher menu.
+
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/HowToOpenSettings.png)
 
 In Behaviour menu you can edit:
+
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/BehaviourSettingsShowcase.png)
+
 1. Which Scenes Collect - there are three options
   1. Only From Build - it means that SceneSwitcher will show you only that scenes that you have in Build Settings.
   2. Custom List - with this option you can configure your scenes list as you wish. Just add your Scene asset in list. 
@@ -71,7 +74,9 @@ In Behaviour menu you can edit:
 5. Save Scene On Switch - not recommended to disable. If enabled, scene will be automaticly saved when switch.
 
 In Button Style menu you can edit:
+
 ![alt text](https://github.com/destructive-crab/SceneSwitcher/blob/main/Screenshots/StyleSettingsShowcase.png)
+
 1. Heights and button spacings 
 2. Formatting of current scene butoon - type there what you want to see on current scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene.
 3. Formatting of Play Mode Start Scene - type there what you want to see on start scene button: content of this field will be displayed on button, SCENE_NAME will be replaced with name of scene. 
